@@ -12,7 +12,7 @@ class Utils {
 		const elements = form?.elements;
 
 		if (!elements) {
-			throw 'Could not find form!';
+			console.error('Could not find form!');
 		}
 
 		const formData = new FormData(form);
@@ -49,7 +49,7 @@ class Utils {
 		const elements = form?.elements;
 
 		if (!elements) {
-			throw 'Could not find form!';
+			console.error('Could not find form!');
 		}
 
 		Array.from(elements)
