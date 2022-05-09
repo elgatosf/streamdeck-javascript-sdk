@@ -293,17 +293,13 @@ class ELGSDStreamDeck {
 	 * @param [target]
 	 */
 	setTitle(context, title = '', target = Constants.hardwareAndSoftware) {
-		if (!title) {
-			console.error('A title is required for setTitle.');
-		}
-
 		if (!context) {
 			console.error('A key context is required for setTitle.');
 		}
 
 		this.send(context, Events.setTitle, {
 			payload: {
-				title,
+				title: `${title}`,
 				target,
 			},
 		});
@@ -318,6 +314,7 @@ class ELGSDStreamDeck {
 		if (!context) {
 			console.error('A key context is required to clearTitle.');
 		}
+
 		this.setTitle(context, null, target);
 	}
 
@@ -328,7 +325,7 @@ class ELGSDStreamDeck {
 	 * @param {object} payload
 	 */
 	sendToPropertyInspector(context, action, payload = null) {
-		if (typeof actionUUID != 'string') {
+		if (typeof action != 'string') {
 			console.error('An action UUID is required to sendToPropertyInspector.');
 		}
 
