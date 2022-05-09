@@ -165,12 +165,12 @@ class ELGSDStreamDeck {
 
 	/**
 	 * Send JSON payload to StreamDeck
-	 * @param {string} event
 	 * @param {string} context
+	 * @param {string} event
 	 * @param {object} [payload]
 	 */
-	send(event, context, payload = {}) {
-		const pl = Object.assign({}, { event: event, context: context }, payload);
+	send(context, event, payload = {}) {
+		const pl = Object.assign({}, { context: context, event: event }, payload);
 		this.websocket && this.websocket.send(JSON.stringify(pl));
 	}
 
@@ -179,16 +179,16 @@ class ELGSDStreamDeck {
 	 * @param {string} [context]
 	 */
 	getSettings(context) {
-		this.send(Events.getSettings, context ?? this.uuid);
+		this.send(context ?? this.uuid, Events.getSettings);
 	}
 
 	/**
 	 * Save the actions's persistent data.
+	 * @param context
 	 * @param {object} payload
-	 * @param [context]
 	 */
-	setSettings(payload, context) {
-		this.send(Events.setSettings, this.uuid, {
+	setSettings(context, payload) {
+		this.send(this.uuid, Events.setSettings, {
 			action: this?.actionInfo?.action,
 			payload: payload || null,
 			targetContext: context,
@@ -199,7 +199,7 @@ class ELGSDStreamDeck {
 	 * Request the plugin's persistent data. StreamDeck does not return the data, but trigger the plugin/property inspectors didReceiveGlobalSettings event
 	 */
 	getGlobalSettings() {
-		this.send(Events.getGlobalSettings, this.uuid);
+		this.send(this.uuid, Events.getGlobalSettings);
 	}
 
 	/**
@@ -207,34 +207,34 @@ class ELGSDStreamDeck {
 	 * @param {object} payload
 	 */
 	setGlobalSettings(payload) {
-		this.send(Events.setGlobalSettings, this.uuid, {
+		this.send(this.uuid, Events.setGlobalSettings, {
 			payload: payload,
 		});
 	}
 
 	/**
 	 * Opens a URL in the default web browser
-	 * @param {string} urlToOpen
+	 * @param {string} url
 	 */
-	openUrl(urlToOpen) {
+	openUrl(url) {
 		if (!url) {
 			console.error('A url is required for openUrl.');
 		}
 
-		this.send(Events.openUrl, this.uuid, {
+		this.send(this.uuid, Events.openUrl, {
 			payload: {
-				url: urlToOpen,
+				url,
 			},
 		});
 	}
 
 	/**
 	 * Send payload from the property inspector to the plugin
+	 * @param {string} context
 	 * @param {object} payload
-	 * @param {string} [context]
 	 */
-	sendToPlugin(payload, context) {
-		this.send(Events.sendToPlugin, this.uuid, {
+	sendToPlugin(context, payload) {
+		this.send(this.uuid, Events.sendToPlugin, {
 			action: this?.actionInfo?.action,
 			payload: payload || null,
 			targetContext: context,
@@ -250,7 +250,7 @@ class ELGSDStreamDeck {
 			console.error('A context is required to showAlert on the key.');
 		}
 
-		this.send(Events.showAlert, context);
+		this.send(context, Events.showAlert);
 	}
 
 	/**
@@ -262,15 +262,15 @@ class ELGSDStreamDeck {
 			console.error('A context is required to showOk on the key.');
 		}
 
-		this.send(Events.showOk, context);
+		this.send(context, Events.showOk);
 	}
 
 	/**
 	 * Set the state of the actions
-	 * @param {object} payload
 	 * @param {string} context
+	 * @param {object} payload
 	 */
-	setState(payload, context) {
+	setState(context, payload) {
 		if (!payload) {
 			console.error('A state is required when using setState.');
 		}
@@ -279,7 +279,7 @@ class ELGSDStreamDeck {
 			console.error('A context is required when using setState.');
 		}
 
-		this.send(Events.setState, context, {
+		this.send(context, Events.setState, {
 			payload: {
 				state: 1 - Number(payload === 0),
 			},
@@ -288,11 +288,11 @@ class ELGSDStreamDeck {
 
 	/**
 	 * Set the title of the action's key
-	 * @param {string} title
 	 * @param {string} context
+	 * @param {string} title
 	 * @param [target]
 	 */
-	setTitle(title, context, target) {
+	setTitle(context, title = '', target = Constants.hardwareAndSoftware) {
 		if (!title) {
 			console.error('A title is required for setTitle.');
 		}
@@ -301,10 +301,10 @@ class ELGSDStreamDeck {
 			console.error('A key context is required for setTitle.');
 		}
 
-		this.send(Events.setTitle, context, {
+		this.send(context, Events.setTitle, {
 			payload: {
-				title: '' + title || '',
-				target: target || Constants.hardwareAndSoftware,
+				title,
+				target,
 			},
 		});
 	}
@@ -318,16 +318,16 @@ class ELGSDStreamDeck {
 		if (!context) {
 			console.error('A key context is required to clearTitle.');
 		}
-		this.setTitle(null, context, target || Constants.hardwareAndSoftware);
+		this.setTitle(context, null, target);
 	}
 
 	/**
 	 * Send payload to property inspector
+	 * @param {string} context
 	 * @param {string} actionUUID
 	 * @param {object} payload
-	 * @param {string} context
 	 */
-	sendToPropertyInspector(actionUUID, context, payload) {
+	sendToPropertyInspector(context, action, payload = null) {
 		if (typeof actionUUID != 'string') {
 			console.error('An action UUID is required to sendToPropertyInspector.');
 		}
@@ -336,30 +336,31 @@ class ELGSDStreamDeck {
 			console.error('A key context is required to sendToPropertyInspector.');
 		}
 
-		this.send(Events.sendToPropertyInspector, context, {
-			action: actionUUID,
-			payload: payload || null,
+		this.send(context, Events.sendToPropertyInspector, {
+			action,
+			payload,
 		});
 	}
 
 	/**
 	 * Set the actions key image
-	 * @param {string} img
 	 * @param {string} context
+	 * @param {string} image
 	 * @param {number} [target]
 	 */
-	setImage(img, context, target) {
-		if (!img) {
+	setImage(context, image = '', target = Constants.hardwareAndSoftware) {
+		if (!image) {
 			console.error('An image is required for setImage.');
 		}
 
 		if (!context) {
 			console.error('A key context is required for setImage.');
 		}
-		this.send(Events.setImage, context, {
+
+		this.send(context, Events.setImage, {
 			payload: {
-				image: img || '',
-				target: target || Constants.hardwareAndSoftware,
+				image,
+				target,
 			},
 		});
 	}
@@ -378,7 +379,7 @@ class ELGSDStreamDeck {
 			console.error('A profile name is required for switchToProfile');
 		}
 
-		this.send(Events.switchToProfile, this.uuid, { device: device, payload: { profile } });
+		this.send(this.uuid, Events.switchToProfile, { device: device, payload: { profile } });
 	}
 
 	/**
@@ -388,7 +389,9 @@ class ELGSDStreamDeck {
 	 */
 	onConnected(fn) {
 		if (!fn) {
-			console.error('A callback function for the connected event is required for onConnected.');
+			console.error(
+				'A callback function for the connected event is required for onConnected.'
+			);
 		}
 
 		this.on(Events.connected, (jsn) => fn(jsn));
@@ -407,7 +410,9 @@ class ELGSDStreamDeck {
 		}
 
 		if (!fn) {
-			console.error('A callback function for the sendToPropertyInspector event is required for onSendToPropertyInspector.');
+			console.error(
+				'A callback function for the sendToPropertyInspector event is required for onSendToPropertyInspector.'
+			);
 		}
 
 		this.on(`${actionUUID}.${Events.sendToPropertyInspector}`, (jsn) => fn(jsn));
@@ -421,7 +426,9 @@ class ELGSDStreamDeck {
 	 */
 	onDeviceDidConnect(fn) {
 		if (!fn) {
-			console.error('A callback function for the deviceDidConnect event is required for onDeviceDidConnect.');
+			console.error(
+				'A callback function for the deviceDidConnect event is required for onDeviceDidConnect.'
+			);
 		}
 
 		this.on(Events.deviceDidConnect, (jsn) => fn(jsn));
@@ -435,7 +442,9 @@ class ELGSDStreamDeck {
 	 */
 	onDeviceDidDisconnect(fn) {
 		if (!fn) {
-			console.error('A callback function for the deviceDidDisconnect event is required for onDeviceDidDisconnect.');
+			console.error(
+				'A callback function for the deviceDidDisconnect event is required for onDeviceDidDisconnect.'
+			);
 		}
 
 		this.on(Events.deviceDidDisconnect, (jsn) => fn(jsn));
@@ -449,7 +458,9 @@ class ELGSDStreamDeck {
 	 */
 	onApplicationDidLaunch(fn) {
 		if (!fn) {
-			console.error('A callback function for the applicationDidLaunch event is required for onApplicationDidLaunch.');
+			console.error(
+				'A callback function for the applicationDidLaunch event is required for onApplicationDidLaunch.'
+			);
 		}
 
 		this.on(Events.applicationDidLaunch, (jsn) => fn(jsn));
@@ -463,7 +474,9 @@ class ELGSDStreamDeck {
 	 */
 	onApplicationDidTerminate(fn) {
 		if (!fn) {
-			console.error('A callback function for the applicationDidTerminate event is required for onApplicationDidTerminate.');
+			console.error(
+				'A callback function for the applicationDidTerminate event is required for onApplicationDidTerminate.'
+			);
 		}
 
 		this.on(Events.applicationDidTerminate, (jsn) => fn(jsn));
@@ -477,7 +490,9 @@ class ELGSDStreamDeck {
 	 */
 	onSystemDidWakeUp(fn) {
 		if (!fn) {
-			console.error('A callback function for the systemDidWakeUp event is required for onSystemDidWakeUp.');
+			console.error(
+				'A callback function for the systemDidWakeUp event is required for onSystemDidWakeUp.'
+			);
 		}
 
 		this.on(Events.systemDidWakeUp, (jsn) => fn(jsn));
@@ -490,7 +505,9 @@ class ELGSDStreamDeck {
 	 */
 	onDidReceiveGlobalSettings(fn) {
 		if (!fn) {
-			console.error('A callback function for the didReceiveGlobalSettings event is required for onDidReceiveGlobalSettings.');
+			console.error(
+				'A callback function for the didReceiveGlobalSettings event is required for onDidReceiveGlobalSettings.'
+			);
 		}
 
 		this.on(Events.didReceiveGlobalSettings, (jsn) => fn(jsn));
