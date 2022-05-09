@@ -34,7 +34,7 @@ class ELGSDStreamDeck {
 	 * @param {string} appInfoString
 	 * @param {string} actionString
 	 */
-	connect([port, uuid, messageType, appInfoString, actionString]) {
+	connect(port, uuid, messageType, appInfoString, actionString) {
 		this.port = port;
 		this.uuid = uuid;
 		this.messageType = messageType;
@@ -527,6 +527,6 @@ const $SD = new ELGSDStreamDeck();
  * @param {string} appInfoString - Information about the host (StreamDeck) application
  * @param {string} actionInfo - Context is an internal identifier used to communicate to the host application.
  */
-function connectElgatoStreamDeckSocket() {
-	$SD.connect(arguments);
+function connectElgatoStreamDeckSocket(port, uuid, messageType, appInfoString, actionInfo) {
+	$SD.connect(port, uuid, messageType, appInfoString, actionInfo);
 }
