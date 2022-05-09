@@ -299,7 +299,7 @@ class ELGSDStreamDeck {
 
 		this.send(context, Events.setTitle, {
 			payload: {
-				title: `${title}`,
+				title: title ? `${title}` : '',
 				target,
 			},
 		});
