@@ -343,9 +343,10 @@ class ELGSDStreamDeck {
 	 * Set the actions key image
 	 * @param {string} context
 	 * @param {string} image
+	 * @param {number} [state]
 	 * @param {number} [target]
 	 */
-	setImage(context, image = '', target = Constants.hardwareAndSoftware) {
+	setImage(context, image, state = 0, target = Constants.hardwareAndSoftware) {
 		if (!image) {
 			console.error('An image is required for setImage.');
 		}
@@ -358,6 +359,7 @@ class ELGSDStreamDeck {
 			payload: {
 				image,
 				target,
+				state
 			},
 		});
 	}
