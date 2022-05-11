@@ -346,7 +346,7 @@ class ELGSDStreamDeck {
 	 * @param {number} [state]
 	 * @param {number} [target]
 	 */
-	setImage(context, image, state = 0, target = Constants.hardwareAndSoftware) {
+	setImage(context, image, state, target = Constants.hardwareAndSoftware) {
 		if (!image) {
 			console.error('An image is required for setImage.');
 		}
