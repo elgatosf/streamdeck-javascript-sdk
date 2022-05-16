@@ -120,7 +120,6 @@ class ELGSDStreamDeck {
 		if (!pathPrefix) {
 			console.error('A path to localization json is required for loadLocalization.');
 		}
-
 		const manifest = await this.readJson(`${pathPrefix}${this.language}.json`);
 		this.localization = manifest['Localization'] ?? null;
 
@@ -131,6 +130,8 @@ class ELGSDStreamDeck {
 				element.textContent = this.localization[element.textContent] ?? element.textContent;
 			});
 		}
+        this.emit('localizationLoaded', this.localization);
+        return this.localization;
 	}
 
 	/**
