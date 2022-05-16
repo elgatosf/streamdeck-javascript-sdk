@@ -122,10 +122,8 @@ class ELGSDStreamDeck {
 		}
 		const manifest = await this.readJson(`${pathPrefix}${this.language}.json`);
 		this.localization = manifest['Localization'] ?? null;
-
 		if (this.messageType === Events.registerPropertyInspector && this.localization) {
 			const elements = document.querySelectorAll(Constants.dataLocalize);
-
 			elements.forEach((element) => {
 				element.textContent = this.localization[element.textContent] ?? element.textContent;
 			});
