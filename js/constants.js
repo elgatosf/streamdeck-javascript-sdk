@@ -43,6 +43,7 @@ const Events = {
 	sendToPropertyInspector: 'sendToPropertyInspector',
 	connected: 'connected',
 	setImage: 'setImage',
+    setXYWHImage: 'setXYWHImage',
 	setTitle: 'setTitle',
 	setState: 'setState',
 	showOk: 'showOk',
