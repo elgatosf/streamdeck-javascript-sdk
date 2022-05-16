@@ -9,7 +9,7 @@ const fadeColor = function (col, amt) {
 };
 
 $SD.onConnected(({ appInfo }) => {
-	if (appInfo?.colors) return;
+    if(!appInfo?.colors) return;
 	const clrs = appInfo.colors;
 	const node = document.getElementById('#sdpi-dynamic-styles') || document.createElement('style');
 	if (!clrs.mouseDownColor) clrs.mouseDownColor = fadeColor(clrs.highlightColor, -100);
