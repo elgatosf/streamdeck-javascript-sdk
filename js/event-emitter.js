@@ -1,31 +1,50 @@
-class ELGSDEventEmitter {
-	eventList = new Map();
+class ELGEventEmitter {
+    constructor (id, debug = false) {
 
-	on(name, fn) {
-		if (!EventEmitter.eventList.has(name)) {
-			EventEmitter.eventList.set(name, EventEmitter.pubSub());
-		}
+        const eventList = new Map();
+        const ALLEVENTS = "*";
 
-		return EventEmitter.eventList.get(name).sub(fn);
-	}
+        eventList.hasWildcard = function(name, data) {
+            for(const [key, value] of this) {
+                if(key !== ALLEVENTS && key.includes(ALLEVENTS) && new RegExp(`^${key.split(/\*+/).join('.*')}$`).test(name)) {
+                    if(data) value.pub(data, name);
+                    else return true;
+                }
+            }
+        };
 
-	emit(name, data) {
-		return EventEmitter.eventList.has(name) && EventEmitter.eventList.get(name).pub(data);
-	}
+        this.on = (name, fn) => {
+            if(!eventList.has(name)) eventList.set(name, ELGEventEmitter.pubSub());
+            return eventList.get(name).sub(fn);
+        };
 
-	pubSub() {
-		const subscribers = new Set();
+        this.has = name => eventList.has(name);
+        this.hasMatch = name => eventList.has(name) || eventList.hasWildcard(name);
+        // this.emit = (name, data) => eventList.has(name) && eventList.get(name).pub(data);
+        this.emit = (name, data) => {
+            eventList.has(name) && eventList.get(name).pub(data, name);
+            eventList.has(ALLEVENTS) && eventList.get(ALLEVENTS).pub(data, name);
+            eventList.hasWildcard(name, data);
+        };
+        // this.eventList = eventList;
 
-		const sub = (fn) => {
-			subscribers.add(fn);
-			return () => {
-				subscribers.delete(fn);
-			};
-		};
+        return this;
+    }
 
-		const pub = (data) => subscribers.forEach((fn) => fn(data));
-		return Object.freeze({pub, sub});
-	}
+    static pubSub() {
+        const subscribers = new Set();
+
+        const sub = fn => {
+            subscribers.add(fn);
+            return () => {
+                console.log("unsubscribe", fn);
+                subscribers.delete(fn);
+            };
+        };
+
+        const pub = (data, name) => subscribers.forEach(fn => fn(data, name));
+        return Object.freeze({pub, sub});
+    }
 }
 
-const EventEmitter = new ELGSDEventEmitter();
+const EventEmitter = new ELGEventEmitter();
