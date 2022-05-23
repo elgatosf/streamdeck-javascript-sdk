@@ -1,6 +1,8 @@
 /// <reference path="event-emitter.js" />
 /// <reference path="constants.js" />
 
+var $localizedStrings = $localizedStrings || {};
+
 /**
  * @class StreamDeck
  * StreamDeck object containing all required code to establish
@@ -122,13 +124,10 @@ class ELGSDStreamDeck {
 		}
 		const manifest = await this.readJson(`${pathPrefix}${this.language}.json`);
 		this.localization = manifest['Localization'] ?? null;
-		if (this.messageType === Events.registerPropertyInspector && this.localization) {
-			const elements = document.querySelectorAll(Constants.dataLocalize);
-			elements.forEach((element) => {
-				element.textContent = this.localization[element.textContent] ?? element.textContent;
-			});
-		}
-        this.emit('localizationLoaded', this.localization);
+		window.$localizedStrings = this.localization;
+
+		this.emit('localizationLoaded', this.localization);
+
         return this.localization;
 	}
 
