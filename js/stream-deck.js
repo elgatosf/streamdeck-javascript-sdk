@@ -266,20 +266,16 @@ class ELGSDStreamDeck {
 	/**
 	 * Set the state of the actions
 	 * @param {string} context
-	 * @param {object} payload
+	 * @param {number} [state]
 	 */
-	setState(context, payload) {
-		if (!payload) {
-			console.error('A state is required when using setState.');
-		}
-
+	setState(context, state) {
 		if (!context) {
 			console.error('A context is required when using setState.');
 		}
 
 		this.send(context, Events.setState, {
 			payload: {
-				state: 1 - Number(payload === 0),
+				state: 1 - Number(state === 0),
 			},
 		});
 	}
