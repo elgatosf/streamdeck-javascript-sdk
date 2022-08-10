@@ -176,7 +176,7 @@ class ELGSDApi {
 	 * @param {object} payload
 	 */
 	setSettings(context, payload) {
-		this.send(this.uuid, Events.setSettings, {
+		this.send(context ?? this.uuid, Events.setSettings, {
 			action: this?.actionInfo?.action,
 			payload: payload || null,
 			targetContext: context,
