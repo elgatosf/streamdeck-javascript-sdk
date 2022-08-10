@@ -24,4 +24,4 @@ class ELGSDPropertyInspector extends ELGSDApi {
 	}
 }
 
-const $PI = new ELGSDPropertyInspector();
+const $SD = new ELGSDPropertyInspector();
