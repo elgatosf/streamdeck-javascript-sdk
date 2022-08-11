@@ -34,3 +34,5 @@ const ELGEvents = {
         return Object.freeze({ pub, sub });
     }
 };
+
+const EventEmitter = ELGEvents.eventEmitter();
