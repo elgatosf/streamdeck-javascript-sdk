@@ -130,34 +130,8 @@ class ELGSDStreamDeck extends ELGSDApi {
 		});
 	}
 
-	/**
-  * Draws an image to a touchbar key
-  * @param {string} context
-  * @param {string} image
-  * @param {array} position as [x,y], where x = 0,100,200,300 for left panel -> right panel
-  * @param {number} [target]
-  */
-
-    setXYWHImage(context, image, position = [0, 0], target = Constants.hardwareAndSoftware) {
-        if(!image) {
-            console.error('An image is required for setXYWHImage.');
-        }
-
-        if(!context) {
-            console.error('A key context is required for setXYWHImage.');
-        }
-
-
-        this.send(context, Events.setXYWHImage, {
-            payload: {
-                image,
-                position,
-                target
-            }
-        });
-    }
 	
-		/**
+	/**
 	 * Registers a callback function for the deviceDidConnect event, which fires when a device is plugged in
 	 * @param {function} fn
 	 * @returns ELGSDStreamDeck
