@@ -9,15 +9,6 @@ class ELGSDApi {
 	appInfo;
 	on = EventEmitter.on;
 	emit = EventEmitter.emit;
-
-	constructor() {
-		if (ELGSDStreamDeck.__instance) {
-			return ELGSDStreamDeck.__instance;
-		}
-
-		ELGSDStreamDeck.__instance = this;
-	}
-
 	/**
 	 * Connect to Stream Deck
 	 * @param {string} port
@@ -109,16 +100,20 @@ class ELGSDApi {
 	 * @returns {Promise<void>}
 	 */
 	async loadLocalization(pathPrefix) {
-		if (!pathPrefix) {
-			console.error('A path to localization json is required for loadLocalization.');
+		try {
+			if (!pathPrefix) {
+				console.error('A path to localization json is required for loadLocalization.');
+			}
+			const manifest = await this.readJson(`${pathPrefix}${this.language}.json`);
+			this.localization = manifest['Localization'] ?? null;
+			window.$localizedStrings = this.localization;
+
+			this.emit('localizationLoaded', this.localization);
+
+			return this.localization;
+		} catch (e) {
+			console.error('Error loading localization', e);
 		}
-		const manifest = await this.readJson(`${pathPrefix}${this.language}.json`);
-		this.localization = manifest['Localization'] ?? null;
-		window.$localizedStrings = this.localization;
-
-		this.emit('localizationLoaded', this.localization);
-
-		return this.localization;
 	}
 
 	/**
@@ -157,10 +152,9 @@ class ELGSDApi {
 	 * @param {string} event
 	 * @param {object} [payload]
 	 */
-     send(context, event, payload = {}) {
-        this.websocket && this.websocket.send(JSON.stringify({context,event, ...payload}));
-    }
-    
+	send(context, event, payload = {}) {
+		this.websocket && this.websocket.send(JSON.stringify({ context, event, ...payload }));
+	}
 
 	/**
 	 * Request the actions's persistent data. StreamDeck does not return the data, but trigger the actions's didReceiveSettings event

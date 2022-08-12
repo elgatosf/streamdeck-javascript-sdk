@@ -1,7 +1,6 @@
 /// <reference path="constants.js" />
 /// <reference path="api.js" />
 
-
 var $localizedStrings = $localizedStrings || {};
 
 /**
@@ -10,6 +9,14 @@ var $localizedStrings = $localizedStrings || {};
  * communication with SD-Software and the Property Inspector
  */
 class ELGSDStreamDeck extends ELGSDApi {
+	constructor() {
+		super();
+		if (ELGSDStreamDeck.__instance) {
+			return ELGSDStreamDeck.__instance;
+		}
+
+		ELGSDStreamDeck.__instance = this;
+	}
 
 	/**
 	 * Display alert triangle on actions key
@@ -125,91 +132,90 @@ class ELGSDStreamDeck extends ELGSDApi {
 			payload: {
 				image,
 				target,
-				state
+				state,
 			},
 		});
 	}
 
-	
 	/**
 	 * Registers a callback function for the deviceDidConnect event, which fires when a device is plugged in
 	 * @param {function} fn
 	 * @returns ELGSDStreamDeck
 	 */
-		 onDeviceDidConnect(fn) {
-			if (!fn) {
-				console.error(
-					'A callback function for the deviceDidConnect event is required for onDeviceDidConnect.'
-				);
-			}
-	
-			this.on(Events.deviceDidConnect, (jsn) => fn(jsn));
-			return this;
+	onDeviceDidConnect(fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the deviceDidConnect event is required for onDeviceDidConnect.'
+			);
 		}
-	
-		/**
-		 * Registers a callback function for the deviceDidDisconnect event, which fires when a device is unplugged
-		 * @param {function} fn
-		 * @returns ELGSDStreamDeck
-		 */
-		onDeviceDidDisconnect(fn) {
-			if (!fn) {
-				console.error(
-					'A callback function for the deviceDidDisconnect event is required for onDeviceDidDisconnect.'
-				);
-			}
-	
-			this.on(Events.deviceDidDisconnect, (jsn) => fn(jsn));
-			return this;
+
+		this.on(Events.deviceDidConnect, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the deviceDidDisconnect event, which fires when a device is unplugged
+	 * @param {function} fn
+	 * @returns ELGSDStreamDeck
+	 */
+	onDeviceDidDisconnect(fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the deviceDidDisconnect event is required for onDeviceDidDisconnect.'
+			);
 		}
-	
-		/**
-		 * Registers a callback function for the applicationDidLaunch event, which fires when the application starts
-		 * @param {function} fn
-		 * @returns ELGSDStreamDeck
-		 */
-		onApplicationDidLaunch(fn) {
-			if (!fn) {
-				console.error(
-					'A callback function for the applicationDidLaunch event is required for onApplicationDidLaunch.'
-				);
-			}
-	
-			this.on(Events.applicationDidLaunch, (jsn) => fn(jsn));
-			return this;
+
+		this.on(Events.deviceDidDisconnect, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the applicationDidLaunch event, which fires when the application starts
+	 * @param {function} fn
+	 * @returns ELGSDStreamDeck
+	 */
+	onApplicationDidLaunch(fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the applicationDidLaunch event is required for onApplicationDidLaunch.'
+			);
 		}
-	
-		/**
-		 * Registers a callback function for the applicationDidTerminate event, which fires when the application exits
-		 * @param {function} fn
-		 * @returns ELGSDStreamDeck
-		 */
-		onApplicationDidTerminate(fn) {
-			if (!fn) {
-				console.error(
-					'A callback function for the applicationDidTerminate event is required for onApplicationDidTerminate.'
-				);
-			}
-	
-			this.on(Events.applicationDidTerminate, (jsn) => fn(jsn));
-			return this;
+
+		this.on(Events.applicationDidLaunch, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the applicationDidTerminate event, which fires when the application exits
+	 * @param {function} fn
+	 * @returns ELGSDStreamDeck
+	 */
+	onApplicationDidTerminate(fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the applicationDidTerminate event is required for onApplicationDidTerminate.'
+			);
 		}
-	
-		/**
-		 * Registers a callback function for the systemDidWakeUp event, which fires when the computer wakes
-		 * @param {function} fn
-		 * @returns ELGSDStreamDeck
-		 */
-		onSystemDidWakeUp(fn) {
-			if (!fn) {
-				console.error(
-					'A callback function for the systemDidWakeUp event is required for onSystemDidWakeUp.'
-				);
-			}
-	
-			this.on(Events.systemDidWakeUp, (jsn) => fn(jsn));
-			return this;
+
+		this.on(Events.applicationDidTerminate, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the systemDidWakeUp event, which fires when the computer wakes
+	 * @param {function} fn
+	 * @returns ELGSDStreamDeck
+	 */
+	onSystemDidWakeUp(fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the systemDidWakeUp event is required for onSystemDidWakeUp.'
+			);
 		}
+
+		this.on(Events.systemDidWakeUp, (jsn) => fn(jsn));
+		return this;
+	}
 }
 
 const $SD = new ELGSDStreamDeck();
