@@ -157,10 +157,10 @@ class ELGSDApi {
 	 * @param {string} event
 	 * @param {object} [payload]
 	 */
-	send(context, event, payload = {}) {
-		const pl = Object.assign({}, { context: context, event: event }, payload);
-		this.websocket && this.websocket.send(JSON.stringify(pl));
-	}
+     send(context, event, payload = {}) {
+        this.websocket && this.websocket.send(JSON.stringify({context,event, ...payload}));
+    }
+    
 
 	/**
 	 * Request the actions's persistent data. StreamDeck does not return the data, but trigger the actions's didReceiveSettings event
