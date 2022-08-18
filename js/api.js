@@ -235,10 +235,6 @@ class ELGSDApi {
 			console.error('A device id is required for switchToProfile.');
 		}
 
-		if (!profile) {
-			console.error('A profile name is required for switchToProfile');
-		}
-
 		this.send(this.uuid, Events.switchToProfile, { device: device, payload: { profile } });
 	}
 
