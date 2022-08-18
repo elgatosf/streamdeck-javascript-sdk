@@ -1,3 +1,5 @@
+/// <reference path="events.js"/>
+
 class ELGSDApi {
 	port;
 	uuid;
@@ -51,13 +53,13 @@ class ELGSDApi {
 		};
 
 		this.websocket.onerror = (evt) => {
-			const error = `WEBOCKET ERROR: ${evt}, ${evt.data}, ${SocketErrors[evt?.code]}`;
+			const error = `WEBSOCKET ERROR: ${evt}, ${evt.data}, ${SocketErrors[evt?.code]}`;
 			console.warn(error);
 			this.logMessage(error);
 		};
 
 		this.websocket.onclose = (evt) => {
-			console.warn('WEBOCKET CLOSED:', SocketErrors[evt?.code]);
+			console.warn('WEBSOCKET CLOSED:', SocketErrors[evt?.code]);
 		};
 
 		this.websocket.onmessage = (evt) => {
