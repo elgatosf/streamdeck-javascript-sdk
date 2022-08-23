@@ -585,16 +585,23 @@ details.message summary {
 details.message:first-child {
     margin-top: 4px;
     margin-left: 0;
-    padding-left: 102px;
+    padding-left: 102px !important;
+    line-height: 48px;
 }
 
 details.message h1 {
     text-align: left;
 }
 
-.message>summary::-webkit-details-marker {
+details > summary {
+    list-style: none;
+}
+
+details > summary::-webkit-details-marker
+.message > summary::-webkit-details-marker {
     display: none;
 }
+
 
 .info20,
 .question,
