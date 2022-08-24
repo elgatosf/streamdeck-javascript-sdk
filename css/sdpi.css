@@ -586,6 +586,9 @@ details.message:first-child {
     margin-top: 4px;
     margin-left: 0;
     padding-left: 102px !important;
+}
+
+details.message > summary:first-of-type {
     line-height: 48px;
 }
 
@@ -593,7 +596,7 @@ details.message h1 {
     text-align: left;
 }
 
-details > summary {
+details:not(.pointer) > summary {
     list-style: none;
 }
 
