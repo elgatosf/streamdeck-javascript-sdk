@@ -115,15 +115,11 @@ class ELGSDStreamDeck extends ELGSDApi {
 	/**
 	 * Set the actions key image
 	 * @param {string} context
-	 * @param {string} image
+	 * @param {string} [image]
 	 * @param {number} [state]
 	 * @param {number} [target]
 	 */
 	setImage(context, image, state, target = Constants.hardwareAndSoftware) {
-		if (!image) {
-			console.error('An image is required for setImage.');
-		}
-
 		if (!context) {
 			console.error('A key context is required for setImage.');
 		}
