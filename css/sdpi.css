@@ -100,7 +100,10 @@ button {
     letter-spacing: var(--sdpi-letterspacing);
 }
 
-
+.sdpi-item-value > :last-of-type, 
+.sdpi-item-value:last-child {
+    margin-bottom: 4px;
+}
 
 .win .sdpi-item-value,
 .win option,
@@ -270,20 +273,30 @@ option {
     margin-top: -1px;
 }
 
+.sdpi-item:first-of-type {
+    margin-top: 2px;
+}
+
+.sdpi-item[type="radio"]:first-of-type,
+.sdpi-item[type="checkbox"]:first-of-type {
+    margin-top: -4px;
+}
+
 .sdpi-item:last-child {
     margin-bottom: 0px;
 }
 
 .sdpi-item>*:not(.sdpi-item-label):not(meter):not(details):not(canvas) {
     min-height: 26px;
-    padding: 0px 4px 0px 4px;
 }
 
 .sdpi-item>*:not(.sdpi-item-label.empty):not(meter) {
     min-height: 26px;
-    padding: 0px 4px 0px 4px;
 }
 
+.sdpi-item > input {
+	padding: 0px 4px;
+},
 
 .sdpi-item-group {
     padding: 0 !important;
@@ -347,9 +360,11 @@ table>caption {
     text-align: right;
     flex: none;
     width: 94px;
-    padding-right: 4px;
+  padding-right: 5px;
     font-weight: 600;
     -webkit-user-select: none;
+  line-height: 24px;
+  margin-left: -1px;
 }
 
 .win .sdpi-item-label,
@@ -515,12 +530,14 @@ td:last-child {
 .sdpi-item-value>select {
     margin-right: 13px;
     margin-left: 4px;
+  padding: 0px 4px;
 }
 
 .sdpi-item-child,
 .sdpi-item-group>.sdpi-item>input[type="color"] {
     margin-top: 0.4em;
     margin-right: 4px;
+  margin-left: 4px;
 }
 
 .full,
@@ -604,7 +621,6 @@ details > summary::-webkit-details-marker
 .message > summary::-webkit-details-marker {
     display: none;
 }
-
 
 .info20,
 .question,
@@ -916,14 +932,10 @@ input[type="range" i] {
 input[type="range"]::-webkit-slider-thumb::before {
     position: absolute;
     content: "";
-    height: 5px;
-    /* equal to height of runnable track or 1 less */
-    width: 500px;
-    /* make this bigger than the widest range input element */
-    left: -502px;
-    /* this should be -2px - width */
-    top: 8px;
-    /* don't change this */
+  height: 5px; /* equal to height of runnable track or 1 less */
+  width: 500px; /* make this bigger than the widest range input element */
+  left: -502px; /* this should be -2px - width */
+  top: 8px; /* don't change this */
     background: #77f;
 }
 
@@ -952,8 +964,7 @@ textarea {
 }
 
 textarea {
-    width: 219px;
-    /*98%;*/
+  width: 219px; /*98%;*/
     height: 96%;
     min-height: 6em;
     resize: none;
@@ -1225,46 +1236,6 @@ input:required:valid {
     color: yellow;
 }
 
-/*
-[title]:hover {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[title]:hover::after {
-  content: '';
-  position: absolute;
-  bottom: -1000px;
-  left: 8px;
-  display: none;
-  color: #fff;
-  border: 8px solid transparent;
-  border-bottom: 8px solid #000;
-}
-
-[title]:hover::before {
-    content: attr(title);
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    padding: 6px 12px;
-    border-radius: 5px;
-    background: rgba(0,0,0,0.8);
-    color: var(--sdpi-color);
-    font-size: 9pt;
-    font-family: sans-serif;
-    opacity: 1;
-    position: absolute;
-    height: auto;
-
-    text-align: center;
-    bottom: 2px;
-    z-index: 100;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, .5);
-}
-*/
-
 .sdpi-item-group.file {
     width: 232px;
     display: flex;
@@ -1294,6 +1265,9 @@ input:required:valid {
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    margin: 4px;
+    border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
