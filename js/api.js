@@ -11,6 +11,7 @@ class ELGSDApi {
 	appInfo;
 	on = EventEmitter.on;
 	emit = EventEmitter.emit;
+
 	/**
 	 * Connect to Stream Deck
 	 * @param {string} port
@@ -64,7 +65,7 @@ class ELGSDApi {
 
 		this.websocket.onmessage = (evt) => {
 			const data = evt?.data ? JSON.parse(evt.data) : null;
-			const { action, event } = data;
+			const {action, event} = data;
 			const message = action ? `${action}.${event}` : event;
 			if (message && message !== '') this.emit(message, data);
 		};
@@ -155,7 +156,7 @@ class ELGSDApi {
 	 * @param {object} [payload]
 	 */
 	send(context, event, payload = {}) {
-		this.websocket && this.websocket.send(JSON.stringify({ context, event, ...payload }));
+		this.websocket && this.websocket.send(JSON.stringify({context, event, ...payload}));
 	}
 
 	/**
@@ -235,7 +236,7 @@ class ELGSDApi {
 			console.error('A device id is required for switchToProfile.');
 		}
 
-		this.send(this.uuid, Events.switchToProfile, { device: device, payload: { profile } });
+		this.send(this.uuid, Events.switchToProfile, {device: device, payload: {profile}});
 	}
 
 	/**

@@ -43,7 +43,7 @@ const Events = {
 	sendToPropertyInspector: 'sendToPropertyInspector',
 	connected: 'connected',
 	setImage: 'setImage',
-    setXYWHImage: 'setXYWHImage',
+	setXYWHImage: 'setXYWHImage',
 	setTitle: 'setTitle',
 	setState: 'setState',
 	showOk: 'showOk',
@@ -70,7 +70,7 @@ const Constants = {
 };
 
 const DestinationEnum = {
-    HARDWARE_AND_SOFTWARE: 0,
-    HARDWARE_ONLY: 1,
-    SOFTWARE_ONLY: 2
+	HARDWARE_AND_SOFTWARE: 0,
+	HARDWARE_ONLY: 1,
+	SOFTWARE_ONLY: 2
 };

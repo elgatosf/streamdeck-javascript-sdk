@@ -8,8 +8,8 @@ const fadeColor = function (col, amt) {
 	return '#' + (g | (b << 8) | (r << 16)).toString(16).padStart(6, 0);
 };
 
-$SD.onConnected(({ appInfo }) => {
-    if(!appInfo?.colors) return;
+$SD.onConnected(({appInfo}) => {
+	if (!appInfo?.colors) return;
 	const clrs = appInfo.colors;
 	const node = document.getElementById('#sdpi-dynamic-styles') || document.createElement('style');
 	if (!clrs.mouseDownColor) clrs.mouseDownColor = fadeColor(clrs.highlightColor, -100);

@@ -55,7 +55,7 @@ class Utils {
 		Array.from(elements)
 			.filter((element) => element?.name)
 			.forEach((element) => {
-				const { name, type } = element;
+				const {name, type} = element;
 				const value = name in jsn ? jsn[name] : null;
 				const isCheckOrRadio = type === 'checkbox' || type === 'radio';
 
