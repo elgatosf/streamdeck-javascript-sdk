@@ -65,7 +65,7 @@ class ELGSDApi {
 
 		this.websocket.onmessage = (evt) => {
 			const data = evt?.data ? JSON.parse(evt.data) : null;
-			const {action, event} = data;
+			const { action, event } = data;
 			const message = action ? `${action}.${event}` : event;
 			if (message && message !== '') this.emit(message, data);
 		};
@@ -156,7 +156,8 @@ class ELGSDApi {
 	 * @param {object} [payload]
 	 */
 	send(context, event, payload = {}) {
-		this.websocket && this.websocket.send(JSON.stringify({context, event, ...payload}));
+		const message = Object.assign({}, { context, event }, payload);
+		this.websocket && this.websocket.send(JSON.stringify(message));
 	}
 
 	/**
@@ -236,7 +237,7 @@ class ELGSDApi {
 			console.error('A device id is required for switchToProfile.');
 		}
 
-		this.send(this.uuid, Events.switchToProfile, {device: device, payload: {profile}});
+		this.send(this.uuid, Events.switchToProfile, { device, payload: { profile } });
 	}
 
 	/**
@@ -246,9 +247,7 @@ class ELGSDApi {
 	 */
 	onConnected(fn) {
 		if (!fn) {
-			console.error(
-				'A callback function for the connected event is required for onConnected.'
-			);
+			console.error('A callback function for the connected event is required for onConnected.');
 		}
 
 		this.on(Events.connected, (jsn) => fn(jsn));
