@@ -35,4 +35,4 @@ const ELGEvents = {
 	}
 };
 
-// const EventEmitter = ELGEvents.eventEmitter();
+const EventEmitter = ELGEvents.eventEmitter();
