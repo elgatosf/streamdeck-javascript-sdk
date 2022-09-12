@@ -156,8 +156,7 @@ class ELGSDApi {
 	 * @param {object} [payload]
 	 */
 	send(context, event, payload = {}) {
-		const message = Object.assign({}, { context, event }, payload);
-		this.websocket && this.websocket.send(JSON.stringify(message));
+		this.websocket && this.websocket.send(JSON.stringify({ context, event, ...payload }));
 	}
 
 	/**

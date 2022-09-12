@@ -296,9 +296,7 @@ option {
 
 .sdpi-item > input {
     padding: 0px 4px;
-}
-
-,
+},
 
 .sdpi-item-group {
     padding: 0 !important;
@@ -975,8 +973,7 @@ textarea {
 
 /* CAROUSEL */
 
-.sdpi-item[type="carousel"] {
-}
+.sdpi-item[type="carousel"] {}
 
 .sdpi-item.card-carousel-wrapper,
 .sdpi-item > .card-carousel-wrapper {
@@ -1112,21 +1109,17 @@ h1 {
     background-position: 4px 0px;
 }
 
-::-webkit-datetime-edit-fields-wrapper {
-}
+::-webkit-datetime-edit-fields-wrapper {}
 
 ::-webkit-datetime-edit-text {
     padding: 0 0.3em;
 }
 
-::-webkit-datetime-edit-month-field {
-}
+::-webkit-datetime-edit-month-field {}
 
-::-webkit-datetime-edit-day-field {
-}
+::-webkit-datetime-edit-day-field {}
 
-::-webkit-datetime-edit-year-field {
-}
+::-webkit-datetime-edit-year-field {}
 
 ::-webkit-inner-spin-button {
 
