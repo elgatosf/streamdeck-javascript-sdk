@@ -65,6 +65,7 @@ class ELGSDApi {
 
 		this.websocket.onmessage = (evt) => {
 			const data = evt?.data ? JSON.parse(evt.data) : null;
+
 			const { action, event } = data;
 			const message = action ? `${action}.${event}` : event;
 			if (message && message !== '') this.emit(message, data);

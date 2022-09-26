@@ -11,7 +11,9 @@ class ELGSDAction {
 
 	constructor(UUID) {
 		if (!UUID) {
-			console.error('An action UUID matching the action UUID in your manifest is required when creating Actions.');
+			console.error(
+				'An action UUID matching the action UUID in your manifest is required when creating Actions.'
+			);
 		}
 
 		this.UUID = UUID;
@@ -23,7 +25,9 @@ class ELGSDAction {
 	 */
 	onDidReceiveSettings(fn) {
 		if (!fn) {
-			console.error('A callback function for the didReceiveSettings event is required for onDidReceiveSettings.');
+			console.error(
+				'A callback function for the didReceiveSettings event is required for onDidReceiveSettings.'
+			);
 		}
 
 		this.on(`${this.UUID}.${Events.didReceiveSettings}`, (jsn) => fn(jsn));
@@ -75,7 +79,9 @@ class ELGSDAction {
 	 */
 	onWillDisappear(fn) {
 		if (!fn) {
-			console.error('A callback function for the willDisappear event is required for onWillDisappear.');
+			console.error(
+				'A callback function for the willDisappear event is required for onWillDisappear.'
+			);
 		}
 
 		this.on(`${this.UUID}.${Events.willDisappear}`, (jsn) => fn(jsn));
@@ -88,7 +94,9 @@ class ELGSDAction {
 	 */
 	onTitleParametersDidChange(fn) {
 		if (!fn) {
-			console.error('A callback function for the titleParametersDidChange event is required for onTitleParametersDidChange.');
+			console.error(
+				'A callback function for the titleParametersDidChange event is required for onTitleParametersDidChange.'
+			);
 		}
 
 		this.on(`${this.UUID}.${Events.titleParametersDidChange}`, (jsn) => fn(jsn));
@@ -101,7 +109,9 @@ class ELGSDAction {
 	 */
 	onPropertyInspectorDidAppear(fn) {
 		if (!fn) {
-			console.error('A callback function for the propertyInspectorDidAppear event is required for onPropertyInspectorDidAppear.');
+			console.error(
+				'A callback function for the propertyInspectorDidAppear event is required for onPropertyInspectorDidAppear.'
+			);
 		}
 
 		this.on(`${this.UUID}.${Events.propertyInspectorDidAppear}`, (jsn) => fn(jsn));
@@ -114,7 +124,9 @@ class ELGSDAction {
 	 */
 	onPropertyInspectorDidDisappear(fn) {
 		if (!fn) {
-			console.error('A callback function for the propertyInspectorDidDisappear event is required for onPropertyInspectorDidDisappear.');
+			console.error(
+				'A callback function for the propertyInspectorDidDisappear event is required for onPropertyInspectorDidDisappear.'
+			);
 		}
 
 		this.on(`${this.UUID}.${Events.propertyInspectorDidDisappear}`, (jsn) => fn(jsn));
@@ -127,10 +139,48 @@ class ELGSDAction {
 	 */
 	onSendToPlugin(fn) {
 		if (!fn) {
-			console.error('A callback function for the sendToPlugin event is required for onSendToPlugin.');
+			console.error(
+				'A callback function for the sendToPlugin event is required for onSendToPlugin.'
+			);
 		}
 
 		this.on(`${this.UUID}.${Events.sendToPlugin}`, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the onDialRotate event, which fires when a SD+ dial was rotated
+	 * @param {function} fn
+	 */
+	onDialRotate(fn) {
+		if (!fn) {
+			console.error('A callback function for the onDialRotate event is required for onDialRotate.');
+		}
+		this.on(`${this.UUID}.${Events.dialRotate}`, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the onDialPress event, which fires when a SD+ dial was pressed or released
+	 * @param {function} fn
+	 */
+	onDialPress(fn) {
+		if (!fn) {
+			console.error('A callback function for the onDialPress event is required for onDialPress.');
+		}
+		this.on(`${this.UUID}.${Events.dialPress}`, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the touchTap event, which fires when a SD+ touch panel was touched quickly
+	 * @param {function} fn
+	 */
+	onTouchTap(fn) {
+		if (!fn) {
+			console.error('A callback function for the onTouchTap event is required for onTouchTap.');
+		}
+		this.on(`${this.UUID}.${Events.touchTap}`, (jsn) => fn(jsn));
 		return this;
 	}
 }

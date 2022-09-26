@@ -133,6 +133,17 @@ class ELGSDStreamDeck extends ELGSDApi {
 		});
 	}
 
+	// TODO: jsdoc, check if this can be used from the property inspector and move it to ELGSDApi
+	setFeedback(context, payload) {
+		if (!context) {
+			console.error('A key context is required for setImage.');
+		}
+
+		this.send(context, Events.setFeedback, {
+			payload,
+		});
+	}
+
 	/**
 	 * Registers a callback function for the deviceDidConnect event, which fires when a device is plugged in
 	 * @param {function} fn
