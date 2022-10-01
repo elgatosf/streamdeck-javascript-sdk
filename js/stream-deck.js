@@ -94,7 +94,7 @@ class ELGSDStreamDeck extends ELGSDApi {
 	/**
 	 * Send payload to property inspector
 	 * @param {string} context
-	 * @param {string} actionUUID
+	 * @param {string} action
 	 * @param {object} payload
 	 */
 	sendToPropertyInspector(context, action, payload = null) {
