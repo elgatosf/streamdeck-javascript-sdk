@@ -55,7 +55,7 @@ class Utils {
 		Array.from(elements)
 			.filter((element) => element?.name)
 			.forEach((element) => {
-				const {name, type} = element;
+				const { name, type } = element;
 				const value = name in jsn ? jsn[name] : null;
 				const isCheckOrRadio = type === 'checkbox' || type === 'radio';
 
@@ -86,5 +86,9 @@ class Utils {
 				fn.apply(null, args);
 			}, wait);
 		};
+	}
+
+	static delay(wait) {
+		return new Promise((fn) => setTimeout(fn, wait));
 	}
 }
