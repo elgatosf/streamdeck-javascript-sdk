@@ -87,4 +87,8 @@ class Utils {
 			}, wait);
 		};
 	}
+
+	static delay(wait) {
+		return new Promise((fn) => setTimeout(fn, wait));
+	}
 }
