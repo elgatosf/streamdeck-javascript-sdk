@@ -57,6 +57,10 @@ const Events = {
 	registerPlugin: 'registerPlugin',
 	logMessage: 'logMessage',
 	switchToProfile: 'switchToProfile',
+	dialRotate: 'dialRotate',
+    dialPress: 'dialPress',
+    touchTap: 'touchTap',
+	setFeedback: 'setFeedback',
 };
 
 /**

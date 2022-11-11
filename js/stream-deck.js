@@ -94,7 +94,7 @@ class ELGSDStreamDeck extends ELGSDApi {
 	/**
 	 * Send payload to property inspector
 	 * @param {string} context
-	 * @param {string} actionUUID
+	 * @param {string} action
 	 * @param {object} payload
 	 */
 	sendToPropertyInspector(context, action, payload = null) {
@@ -130,6 +130,17 @@ class ELGSDStreamDeck extends ELGSDApi {
 				target,
 				state,
 			},
+		});
+	}
+
+	// TODO: jsdoc, check if this can be used from the property inspector and move it to ELGSDApi
+	setFeedback(context, payload) {
+		if (!context) {
+			console.error('A key context is required for setImage.');
+		}
+
+		this.send(context, Events.setFeedback, {
+			payload,
 		});
 	}
 
