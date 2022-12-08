@@ -31,9 +31,31 @@ class ELGSDPropertyInspector extends ELGSDApi {
 		this.on(`${actionUUID}.${Events.sendToPropertyInspector}`, (jsn) => fn(jsn));
 		return this;
 	}
+
+	/**
+	 * Send payload from the property inspector to the plugin
+	 * @param {object} payload
+	 */
+	sendToPlugin(payload) {
+		this.send(this.uuid, Events.sendToPlugin, {
+			action: this?.actionInfo?.action,
+			payload: payload || null,
+		});
+	}
+
+	/**
+	 * Save the actions's persistent data.
+	 * @param {object} payload
+	 */
+	setSettings(payload) {
+		this.send(this.uuid, Events.setSettings, {
+			action: this?.actionInfo?.action,
+			payload: payload || null,
+		});
+	}
 }
 
-const $SD = new ELGSDPropertyInspector();
+const $PI = new ELGSDPropertyInspector();
 
 /**
  * connectElgatoStreamDeckSocket
@@ -46,5 +68,5 @@ const $SD = new ELGSDPropertyInspector();
  * @param {string} actionInfo - Context is an internal identifier used to communicate to the host application.
  */
 function connectElgatoStreamDeckSocket(port, uuid, messageType, appInfoString, actionInfo) {
-	$SD.connect(port, uuid, messageType, appInfoString, actionInfo);
+	$PI.connect(port, uuid, messageType, appInfoString, actionInfo);
 }
