@@ -43,6 +43,65 @@ class ELGSDStreamDeck extends ELGSDApi {
 	}
 
 	/**
+	 * Save the actions's persistent data.
+	 * @param context
+	 * @param {object} payload
+	 */
+	setSettings(context, payload) {
+		this.send(context, Events.setSettings, {
+			action: this?.actionInfo?.action,
+			payload: payload || null,
+			targetContext: context,
+		});
+	}
+
+	/**
+	 * Request the actions's persistent data. StreamDeck does not return the data, but trigger the actions's didReceiveSettings event
+	 * @param {string} [context]
+	 */
+	 getSettings(context) {
+		this.send(context, Events.getSettings);
+	}
+
+	/**
+	 * Request the plugin's persistent data. StreamDeck does not return the data, but trigger the plugin/property inspectors didReceiveGlobalSettings event
+	 */
+	 getGlobalSettings() {
+		this.send(this.uuid, Events.getGlobalSettings);
+	}
+
+	/**
+	 * Registers a callback function for the didReceiveGlobalSettings event, which fires when calling getGlobalSettings
+	 * @param {function} fn
+	 */
+	 onDidReceiveGlobalSettings(fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the didReceiveGlobalSettings event is required for onDidReceiveGlobalSettings.'
+			);
+		}
+
+		this.on(Events.didReceiveGlobalSettings, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the didReceiveSettings event, which fires when calling getSettings
+	 * @param {string} action
+	 * @param {function} fn
+	 */
+	onDidReceiveSettings(action, fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the didReceiveSettings event is required for onDidReceiveSettings.'
+			);
+		}
+
+		this.on(`${action}.${Events.didReceiveSettings}`, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
 	 * Set the state of the actions
 	 * @param {string} context
 	 * @param {number} [state]
@@ -222,6 +281,19 @@ class ELGSDStreamDeck extends ELGSDApi {
 
 		this.on(Events.systemDidWakeUp, (jsn) => fn(jsn));
 		return this;
+	}
+
+	/**
+	 * Switches to a readonly profile or returns to previous profile
+	 * @param {string} device
+	 * @param {string} [profile]
+	 */
+	 switchToProfile(device, profile) {
+		if (!device) {
+			console.error('A device id is required for switchToProfile.');
+		}
+
+		this.send(this.uuid, Events.switchToProfile, { device, payload: { profile } });
 	}
 }
 
