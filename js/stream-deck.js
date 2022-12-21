@@ -59,46 +59,8 @@ class ELGSDStreamDeck extends ELGSDApi {
 	 * Request the actions's persistent data. StreamDeck does not return the data, but trigger the actions's didReceiveSettings event
 	 * @param {string} [context]
 	 */
-	 getSettings(context) {
+	getSettings(context) {
 		this.send(context, Events.getSettings);
-	}
-
-	/**
-	 * Request the plugin's persistent data. StreamDeck does not return the data, but trigger the plugin/property inspectors didReceiveGlobalSettings event
-	 */
-	 getGlobalSettings() {
-		this.send(this.uuid, Events.getGlobalSettings);
-	}
-
-	/**
-	 * Registers a callback function for the didReceiveGlobalSettings event, which fires when calling getGlobalSettings
-	 * @param {function} fn
-	 */
-	 onDidReceiveGlobalSettings(fn) {
-		if (!fn) {
-			console.error(
-				'A callback function for the didReceiveGlobalSettings event is required for onDidReceiveGlobalSettings.'
-			);
-		}
-
-		this.on(Events.didReceiveGlobalSettings, (jsn) => fn(jsn));
-		return this;
-	}
-
-	/**
-	 * Registers a callback function for the didReceiveSettings event, which fires when calling getSettings
-	 * @param {string} action
-	 * @param {function} fn
-	 */
-	onDidReceiveSettings(action, fn) {
-		if (!fn) {
-			console.error(
-				'A callback function for the didReceiveSettings event is required for onDidReceiveSettings.'
-			);
-		}
-
-		this.on(`${action}.${Events.didReceiveSettings}`, (jsn) => fn(jsn));
-		return this;
 	}
 
 	/**
@@ -192,14 +154,33 @@ class ELGSDStreamDeck extends ELGSDApi {
 		});
 	}
 
-	// TODO: jsdoc, check if this can be used from the property inspector and move it to ELGSDApi
+	/**
+	 * Set the properties of the layout on the Stream Deck + touch display
+	 * @param {*} context
+	 * @param {*} payload
+	 */
 	setFeedback(context, payload) {
 		if (!context) {
-			console.error('A key context is required for setImage.');
+			console.error('A context is required for setFeedback.');
 		}
 
 		this.send(context, Events.setFeedback, {
 			payload,
+		});
+	}
+
+	/**
+	 * Set the active layout by ID or path for the Stream Deck + touch display
+	 * @param {*} context
+	 * @param {*} layout
+	 */
+	setFeedbackLayout(context, layout) {
+		if (!context) {
+			console.error('A context is required for setFeedbackLayout.');
+		}
+
+		this.send(context, Events.setFeedbackLayout, {
+			payload: { layout },
 		});
 	}
 
@@ -288,7 +269,7 @@ class ELGSDStreamDeck extends ELGSDApi {
 	 * @param {string} device
 	 * @param {string} [profile]
 	 */
-	 switchToProfile(device, profile) {
+	switchToProfile(device, profile) {
 		if (!device) {
 			console.error('A device id is required for switchToProfile.');
 		}
@@ -310,5 +291,9 @@ const $SD = new ELGSDStreamDeck();
  * @param {string} actionInfo - Context is an internal identifier used to communicate to the host application.
  */
 function connectElgatoStreamDeckSocket(port, uuid, messageType, appInfoString, actionInfo) {
-	$SD.connect(port, uuid, messageType, appInfoString, actionInfo);
+	const delay = window?.initialConnectionDelay || 0;
+
+	setTimeout(() => {
+		$SD.connect(port, uuid, messageType, appInfoString, actionInfo);
+	}, delay);
 }

@@ -171,6 +171,13 @@ class ELGSDApi {
 	}
 
 	/**
+	 * Request the plugin's persistent data. StreamDeck does not return the data, but trigger the plugin/property inspectors didReceiveGlobalSettings event
+	 */
+	getGlobalSettings() {
+		this.send(this.uuid, Events.getGlobalSettings);
+	}
+
+	/**
 	 * Opens a URL in the default web browser
 	 * @param {string} url
 	 */
@@ -197,6 +204,37 @@ class ELGSDApi {
 		}
 
 		this.on(Events.connected, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the didReceiveGlobalSettings event, which fires when calling getGlobalSettings
+	 * @param {function} fn
+	 */
+	onDidReceiveGlobalSettings(fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the didReceiveGlobalSettings event is required for onDidReceiveGlobalSettings.'
+			);
+		}
+
+		this.on(Events.didReceiveGlobalSettings, (jsn) => fn(jsn));
+		return this;
+	}
+
+	/**
+	 * Registers a callback function for the didReceiveSettings event, which fires when calling getSettings
+	 * @param {string} action
+	 * @param {function} fn
+	 */
+	onDidReceiveSettings(action, fn) {
+		if (!fn) {
+			console.error(
+				'A callback function for the didReceiveSettings event is required for onDidReceiveSettings.'
+			);
+		}
+
+		this.on(`${action}.${Events.didReceiveSettings}`, (jsn) => fn(jsn));
 		return this;
 	}
 }

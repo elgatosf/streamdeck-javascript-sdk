@@ -53,6 +53,13 @@ class ELGSDPropertyInspector extends ELGSDApi {
 			payload: payload || null,
 		});
 	}
+
+	/**
+	 * Request the actions's persistent data. StreamDeck does not return the data, but trigger the actions's didReceiveSettings event
+	 */
+	getSettings() {
+		this.send(this.uuid, Events.getSettings);
+	}
 }
 
 const $PI = new ELGSDPropertyInspector();
@@ -68,5 +75,8 @@ const $PI = new ELGSDPropertyInspector();
  * @param {string} actionInfo - Context is an internal identifier used to communicate to the host application.
  */
 function connectElgatoStreamDeckSocket(port, uuid, messageType, appInfoString, actionInfo) {
-	$PI.connect(port, uuid, messageType, appInfoString, actionInfo);
+	const delay = window?.initialConnectionDelay || 0;
+	setTimeout(() => {
+		$PI.connect(port, uuid, messageType, appInfoString, actionInfo);
+	}, delay);
 }

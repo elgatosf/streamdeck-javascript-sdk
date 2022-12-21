@@ -58,9 +58,10 @@ const Events = {
 	logMessage: 'logMessage',
 	switchToProfile: 'switchToProfile',
 	dialRotate: 'dialRotate',
-    dialPress: 'dialPress',
-    touchTap: 'touchTap',
+	dialPress: 'dialPress',
+	touchTap: 'touchTap',
 	setFeedback: 'setFeedback',
+	setFeedbackLayout: 'setFeedbackLayout',
 };
 
 /**
@@ -76,5 +77,5 @@ const Constants = {
 const DestinationEnum = {
 	HARDWARE_AND_SOFTWARE: 0,
 	HARDWARE_ONLY: 1,
-	SOFTWARE_ONLY: 2
+	SOFTWARE_ONLY: 2,
 };
