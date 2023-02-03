@@ -60,6 +60,9 @@ class ELGSDPlugin {
     get __folderroot() {
         return this.#data.__folderroot;
     }
+    get data() {
+        return this.#data;
+    }
 
     /**
     * Finds the original key of the string value
