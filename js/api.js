@@ -22,6 +22,7 @@ class ELGSDPlugin {
         this.#data.__dirname = pathArr[pathArr.length - 2];
         this.#data.__folderpath = `${pathArr.slice(0, idx + 1).join("/")}/`;
         this.#data.__folderroot = `${pathArr.slice(0, idx).join("/")}/`;
+        this.#data.__parentdir = `${pathArr.slice(0, idx-1).join("/")}/`;
     }
 
     set language(value) {
