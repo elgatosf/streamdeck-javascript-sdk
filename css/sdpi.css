@@ -9,6 +9,7 @@ html {
     --sdpi-fontweight: 600;
     --sdpi-letterspacing: -0.25pt;
     --sdpi-tab-color: #969696;
+    --sdpi-tab-left-margin: 1px;
     --sdpi-tab-top-offset: 1px;
     --sdpi-tab-selected-color: #333333;
     --sdpi-tab-selected-top-offset: 0px;
@@ -221,12 +222,17 @@ progress.full {
     background-color: rgba(0, 0, 0, 0.1);
     margin: 0px;
     margin-top: var(--sdpi-tab-top-offset);
+    margin-left: var(--sdpi-tab-left-margin);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid var(--sdpi-linecolor);
     -webkit-user-select: none;
     user-select: none;
+}
+
+.tab:first-child {
+  margin-left: 0px;
 }
 
 .tab-container {
