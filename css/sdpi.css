@@ -13,6 +13,7 @@ html {
     --sdpi-tab-selected-color: #333333;
     --sdpi-tab-selected-top-offset: 0px;
     --sdpi-tab-font-size: 9pt;
+    --sdpi-tab-container-left-offset: 5px;
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -184,6 +185,7 @@ progress.full {
     overflow-x: auto;
     text-transform: capitalize;
     background-color: transparent;
+    margin-left: var(--sdpi-tab-container-left-offset);
 }
 
 .tabs::-webkit-scrollbar {
