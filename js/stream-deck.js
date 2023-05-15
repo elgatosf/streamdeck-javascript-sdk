@@ -75,7 +75,7 @@ class ELGSDStreamDeck extends ELGSDApi {
 
 		this.send(context, Events.setState, {
 			payload: {
-				state: 1 - Number(state === 0),
+				state: Number(state),
 			},
 		});
 	}
@@ -116,7 +116,7 @@ class ELGSDStreamDeck extends ELGSDApi {
 	 * Send payload to property inspector
 	 * @param {string} context
 	 * @param {object} payload
-     * @param {string} [action]
+	 * @param {string} [action]
 	 */
 	sendToPropertyInspector(context, payload = null, action = null) {
 		if (typeof context != 'string') {
