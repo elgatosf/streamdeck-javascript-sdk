@@ -27,9 +27,11 @@ class ELGSDPlugin {
 
     set language(value) {
         this.#language = value;
-        this.loadLocalization(this.#data.__folderpath).then(l => {
+        this.loadLocalization(this.#data.__folderpath)
+        .then(l => {
             this.emit('languageChanged', value);
-        });
+        })
+        .catch(() => console.warn(`Localization for '${this.#language}' couldn't be loaded`))
     }
 
     get language() {
