@@ -1597,6 +1597,6 @@ select {
     min-width: 0px;
 
     /* this is a clunky fix for using background image as select arrow with long text options */
-    -webkit-appearance: media-slider;
+   /* -webkit-appearance: media-slider; */
     text-overflow: ellipsis;
 }
