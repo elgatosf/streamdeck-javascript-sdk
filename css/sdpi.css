@@ -1689,6 +1689,12 @@ input[type="range"].colortemperature::-webkit-slider-thumb {
 /* adding some styles here that override sdpi things so we can use this as notes for sdpi updates*/
 select {
     min-width: 0px;
+<<<<<<< HEAD
+=======
+
+    /* this is a clunky fix for using background image as select arrow with long text options */
+   /* -webkit-appearance: media-slider; */
+>>>>>>> b1f4930 (Fix dropdown indicator showing twice)
     text-overflow: ellipsis;
 }
 
