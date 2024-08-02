@@ -4,11 +4,9 @@ Stream Deck's integrated HTML5 Property Inspector allows you to communicate with
 
 <!-- TODO: Mark as deprecated and provide reference links to the new component library.  -->
 
-***
-
 ## General operation
 
-We've included some layout and styling to get you started quickly. PI's main view is wrapped in a HTML-node with the class `sdpi-wrapper`.
+The property inspector's main view is wrapped in a `div` with the class `sdpi-wrapper`.
 
 ```html
 <div class="sdpi-wrapper">
@@ -18,7 +16,7 @@ We've included some layout and styling to get you started quickly. PI's main vie
 <div>
 ```
 
-To make sure proper styling is applied to the wrapper's contents, you would link our included stylesheet in the `<head>` section of PI's HTML page.
+Link the included stylesheet in the `<head>` tag of your property inspector's HTML.
 
 ```html
 <head>
@@ -36,7 +34,7 @@ To make sure proper styling is applied to the wrapper's contents, you would link
 
 ## Adding elements
 
-Standard elements of Stream Deck's PI consist of a `label` and a `value`, each of which can be identified by their respective classes: `sdpi-item-label` and `sdpi-item-value`. Since you can add multiple label/value pairs, each of these pairs are wrapped into an `sdpi-item` node. `<div class="sdpi-item">` is basically all that's required. Add a `type` to the `sdpi-item` to use the included helper CSS.
+Standard elements of Stream Deck's PI consist of a `label` and a `value`, each of which can be identified by their respective classes: `sdpi-item-label` and `sdpi-item-value`. Since you can add multiple label/value pairs, each of these pairs are wrapped into a `sdpi-item` node. The `sdpi-item` class to create a new item. Providing the type attribute adds the appropriate styling.
 
 ```html
 <div class="sdpi-item" type="textarea">
@@ -57,20 +55,20 @@ Standard elements of Stream Deck's PI consist of a `label` and a `value`, each o
 | [button](#button)                   | type="button" `<optional>` | A styled HTML-button.                                                                                                                                                                                                                                                                                    |
 | [textarea](#textarea)               | type="textarea"            | An input control, which lets the user enter multiple lines of text.                                                                                                                                                                                                                                      |
 | [select](#select)                   | type="select"              | A regular `select` element can have `options` to select from.                                                                                                                                                                                                                                            |
-| [checkbox](#checkbox)               | type="checkbox"            | A checkbox which lets a user selet ('check') one or more of one or more choices.                                                                                                                                                                                                                         |
+| [checkbox](#checkbox)               | type="checkbox"            | A checkbox which lets a user select ('check') one or more of one or more choices.                                                                                                                                                                                                                         |
 | [radio](#radio)                     | type="radio"               | A radio-button (mostly used in a group of radio-buttons) which lets a user select only one of a number of choices.                                                                                                                                                                                       |
 | [range](#range)                     | type="range"               | A range (or slider) control, to let the user adjust a value (e.g. number or color)                                                                                                                                                                                                                       |
-| [color](#color)                     | type="color"               | Shows a color-preview and let the user open a color-picker to change it's value visually                                                                                                                                                                                                                 |
-| [file](#file)                       | type="file"                | A file-upload element with label, which opens a file-dialog and lets the user choose a file. It differs a bit from the regular `file`selector, in that it allows you to pick up the full path of the selected file. (You will find a sample how to do this in the PISamples plugin.                      |
-| [list](#list)                       | type="list"                | A regular `list` element to show items to select from. Ordered, unordered lists and some other list-types are supported. (Btw: in the PISamples plugin, there's a short utility javascript, which already make the lists interactive/clickable... [Click here for more info](#list) |
-| [table](#tables)                    | type="table"               | Also `table` elements are supported, where each cell can contain a (clickable) value (in the PISamples plugin, you'll find a short utility javascript, which already make the table interactive/clickable... [Click here for more info](#tables)                                    |
+| [color](#color)                     | type="color"               | Shows a color-preview and let the user open a color-picker to change its value visually                                                                                                                                                                                                                 |
+| [file](#file)                       | type="file"                | A file-upload element with label, which opens a file-dialog and lets the user choose a file. It differs a bit from the regular `file`selector, in that it allows you to pick up the full path of the selected file.              |
+| [list](#list)                       | type="list"                | A regular `list` element to show items to select from. Ordered, unordered lists and other list-types are supported. |
+| [table](#tables)                    | type="table"               | A table element.                                  |
 | [group](#group)                     | type="group"               | A container, which allows grouping of arbitrary HTML elements (as the ones mentioned above)                                                                                                                                                                                                              |
-| [line](#line)                       |                            | A regular `<hr>` element will add a horizontal line and some spacing                                                                                                                                                                                                                                     |
-| [heading](#heading)                 | class="sdpi-heading"       | Draws an horizontal line and additionally a nicely centered heading                                                                                                                                                                                                                                      |
+| [line](#line)                       |                            | A regular `<hr>` element will add a horizontal line and spacing                                                                                                                                                                                                                                     |
+| [heading](#heading)                 | class="sdpi-heading"       | Draws a horizontal line and additionally a nicely centered heading                                                                                                                                                                                                                                      |
 | [meter](#meter)                     | type="meter"               | A horizontal meter, showing a value within a known range. [More info (mozilla.org)](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter)                                                                                                                                                     |
 | [progress](#progress)               | type="progress"            | A progressbar, typically showing the state of a certain progess (e.g. completion). [More info (mozilla.org)](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress)                                                                                                                         |
-| [details](#details)                 |                            | The `details` element is a complete widget on it's own. It therefore occupies the full width of the PI's view by default. It can be used to create an interactive widget that the user can open and close. You can put any content into it.                                                              |
-| [message](#message)                 |                            | The `message` element is similar to the `details`element. It doesn't show an disclosure-triangle, but you can add some notification icons to it. It can be used to create an interactive widget that the user can open and close. You can put any content into it.                                       |
+| [details](#details)                 |                            | The `details` element is a complete widget on its own. It therefore occupies the full width of the PI's view by default. It can be used to create an interactive widget that the user can open and close.                                                         |
+| [message](#message)                 |                            | The `message` element is similar to the `details`element. It doesn't show a disclosure-triangle, but you can add notification icons to it. It can be used to create an interactive widget that the user can open and close. You can put any content into it.                                       |
 
 Note that only 'flat' `sdpi-item` structures are supported. That means, `sdpi-item` within another `sdpi-item` is _unsupported_ (some exceptions apply, see [Group](#group)). Adding `id` attributes to your elements is recommended.
 
@@ -89,7 +87,6 @@ Note that only 'flat' `sdpi-item` structures are supported. That means, `sdpi-it
 
 ![Property Inspector Input](<./docs/image (75).png>)
 
-**The `required` attribute**
 
 If you want to notify the user of a `required` value, you can simply add a `required` control, which shows a tiny exclamation mark, as long as there's no text in the field.
 
@@ -97,7 +94,7 @@ If you want to notify the user of a `required` value, you can simply add a `requ
 
 ```html
 <div type="textarea" class="sdpi-item" id="required_text">
-    <div class="sdpi-item-label">Some Text</div>
+    <div class="sdpi-item-label">Text</div>
     <span class="sdpi-item-value">
         <input type="text"  id="mytext" required></input>
     </span>
@@ -108,18 +105,16 @@ A checkmark is displayed in completed fields:
 
 ![Property Inspector Input Completed Checkmark](<./docs/image (72).png>)
 
-**The `pattern` attribute**
-
 You can use the `pattern` attribute to specify a pattern to validate the IP-Address.
 
 ```html
-<div class="sdpi-item" id="your_name" title="This field lets you enter an IP-Adress. The little exclamation mark changes to a checkmark, if the condition is met (e.g. you entered an IP-address.).">
+<div class="sdpi-item" id="your_name" title="This field lets you enter an IP-Address. The little exclamation mark changes to a checkmark, if the condition is met (e.g. you entered an IP-address.).">
     <div class="sdpi-item-label">IP-Address</div>
     <input class="sdpi-item-value" id="myipaddress" value="" placeholder="e.g. 192.168.61.1" required pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">
 </div>
 ```
 
-Here are some example patterns:
+Example patterns:
 
 * 8 characters or more: `pattern=".{6,}"`
 * 2-character country code (e.g. EN): `pattern="[A-Za-z]{2}"`
@@ -134,7 +129,7 @@ Here are some example patterns:
 
 ### Textarea
 
-If you need to enter some more text, you can easily add a `textarea` control, which allows for multi-line text.
+If you need to enter more text, you can add a `textarea` control, which allows for multi-line text.
 
 ```html
 <div type="textarea" class="sdpi-item" id="message_only">
@@ -161,7 +156,7 @@ You can add info-text to the bottom of the textarea by adding a `label` right af
 </div>
 ```
 
-Adding a little Javascript to PI's webview, can make this into a nice counter:
+Adding a little JavaScript to PI's web-view, can make this into a nice counter:
 
 ```javascript
     document.querySelectorAll('textarea').forEach(e => {
@@ -190,7 +185,7 @@ Adding a little Javascript to PI's webview, can make this into a nice counter:
 
 ![Full Button](<./docs/image (71).png>)
 
-By default, the button's width takes the full available width. We included a couple of utility-classes in `sdpi.css` to restrict width of a button. E.g class `max20` limits the width to approx 20% of the total width:
+By default, the button's width takes the full available width. We included a couple of utility-classes in `sdpi.css` to restrict width of a button. e.g. class `max20` limits the width to approx 20% of the total width:
 
 ![Button](<./docs/image (25).png>)
 
@@ -230,7 +225,7 @@ This also works for other combinations of elements:
 </div>
 ```
 
-### Select <a href="#select" id="select"></a>
+### Select
 
 Creating a HTML5 select box with a label is straightforward:
 
@@ -303,9 +298,7 @@ In order to let the PI know there are a group of checkboxes, you just put these 
 
 Please note the additional `<span>` element, which is used to override the browser's default checkbox. It remains empty and serves just as a placeholder. This is a common technique to allow drawing custom checkboxes, radio-buttons, etc.
 
-#### Many checkboxes
-
-If you need more than 2 or 3 checkboxes, alignment can get tricky and you end up with this:
+#### Multiple checkboxes
 
 ```html
 <div type="checkbox" class="sdpi-item">
@@ -378,16 +371,16 @@ Creating an input of type `radio` follows the same logic as creating an input of
     <div class="sdpi-item-label">Adjust Radio</div>
     <div class="sdpi-item-value ">
         <span class="sdpi-item-child">
-            <input id="rdio1" type="radio" name="rdio" >
-            <label for="rdio1" class="sdpi-item-label"><span></span>on</label>
+            <input id="radio1" type="radio" name="radio" >
+            <label for="radio1" class="sdpi-item-label"><span></span>on</label>
         </span>
         <span class="sdpi-item-child">
-            <input id="rdio2" type="radio" value="off" name="rdio" checked>
-            <label for="rdio2" class="sdpi-item-label"><span></span>off</label>
+            <input id="radio2" type="radio" value="off" name="radio" checked>
+            <label for="radio2" class="sdpi-item-label"><span></span>off</label>
         </span>
         <span class="sdpi-item-child">
-            <input id="rdio3" type="radio" value="mute" name="rdio">
-            <label for="rdio3" class="sdpi-item-label"><span></span>mute</label>
+            <input id="radio3" type="radio" value="mute" name="radio">
+            <label for="radio3" class="sdpi-item-label"><span></span>mute</label>
         </span>
     </div>
 </div>
@@ -395,7 +388,7 @@ Creating an input of type `radio` follows the same logic as creating an input of
 
 ### Range
 
-Creating a slider (aka. HTML5 `range` control) is as easy as changing the 'type' attribute of the input.
+Creating a slider using the `range` type.
 
 ![Range](<./docs/image (21).png>)
 
@@ -425,7 +418,7 @@ and add the class directly to the input, like so:
 
 #### Range with labels
 
-To add labels to a range, however, a range must be grouped into an `sdpi-item-value`, and labels get added as `span` elements:
+To add labels to a range, however, a range must be grouped into a `sdpi-item-value`, and labels get added as `span` elements:
 
 ![Range With Labels](<./docs/image (10).png>)
 
@@ -440,13 +433,13 @@ To add labels to a range, however, a range must be grouped into an `sdpi-item-va
 </div>
 ```
 
-Note: In the PISamples-plugin, a `span` of class `clickable` is intercepted, and the value of its 'range' element is set to the value specified in the 'value' attribute of the `span` element. If you leave out the `value` attribute from the `span` element, PI tries to use the value in the `span` text-node.
+A `span` of class `clickable` is intercepted, and the value of its 'range' element is set to the value specified in the 'value' attribute of the `span` element. If you leave out the `value` attribute from the `span` element, PI tries to use the value in the `span` text-node.
 
-#### Range with datalist
+#### Range with `datalist`
 
-Adding a datalist to a range produces `steps`. Pi's slider will snap to those steps.
+Adding a data-list to a range produces `steps`. Pi's slider will snap to those steps.
 
-![Range with Datalist](<./docs/image (44).png>)
+![Range with `datalist`](<./docs/image (44).png>)
 
 ```html
 <div type="range" class="sdpi-item" id="range_with_datalist">
@@ -466,7 +459,7 @@ Adding a datalist to a range produces `steps`. Pi's slider will snap to those st
 
 ### Color
 
-Creating a color-selector is as easy as changing the 'type' attribute of the input.
+Create a color-selector using the `range` type.
 
 ```html
 <div type="range" class="sdpi-item" id="temperatureslider">
@@ -490,7 +483,7 @@ or the shorter version, which produces the same output:
 
 #### Color with predefined selection
 
-To present some pre-defined color values, you can add a datalist to the color control. To make sure the list gets appended properly, set the `list` attribute of the `input` control to the `id` of the `datalist`. (in our example 'clrs')
+To present pre-defined color values, you can add a datalist to the color control. To make sure the list gets appended properly, set the `list` attribute of the `input` control to the `id` of the `datalist`. (in our example 'clrs')
 
 ![Color With Selection](<./docs/image (49).png>)
 
@@ -517,12 +510,12 @@ There are various date and time controls supported, using Chrome's integrated da
 
 ### Date
 
-Showing a date-element is as easy as setting the type to 'date' and the value to the date to be shown.
+Create a date element using the `date` type.
 
 ![Date](<./docs/image (56).png>)
 
 ```html
-<div class="sdpi-item">
+<div class="sdpi-item" type="date">
     <div class="sdpi-item-label">Date</div>
     <input class="sdpi-item-value" id="mydate" type="date" value="2019-01-15">
 </div>
@@ -641,15 +634,15 @@ A combined `datetime` control allows to set both date and time based on the user
 
 ### List
 
-Using a list control, you can present the user with a list of items. In our sample plugin, we show how you can make them interactive/clickable by adding a class to the list. Supported classes are:
+Using a list control, you can present the user with a list of items. Supported classes are:
 
 | Class                  | Description                                    |
 | ---------------------- | ---------------------------------------------- |
 | no-select `<optional>` | List just shows scrollable items               |
-| single-select          | List hilites the currently clicked/active item |
+| single-select          | List highlights the currently clicked/active item |
 | multi-select           | Allows selecting multiple items                |
 
-For `single-select` and `multi-select`, a `selected` class is applied to the selected/clicked list-item, so it's easy to find its state. You can also pre-select an item by adding a class `selected` when constructing the list.
+For `single-select` and `multi-select`, a `selected` class is applied to the selected/clicked list-item.
 
 ![List](<./docs/image (11).png>)
 
@@ -729,19 +722,19 @@ For `single-select` and `multi-select`, a `selected` class is applied to the sel
 
 ### Tables
 
-Using a `table` control, you can present the user with a table of values.
+Present the user with a table of values.
 
 ![Tables](<./docs/image (3).png>)
 
-In our sample plugin, we show how you can easily make them interactive/clickable by adding a class to the table. Supported classes are:
+In our sample plugin, we show how you can make them interactive/clickable by adding a class to the table. Supported classes are:
 
 | Class                  | Description                                                 |
 | ---------------------- | ----------------------------------------------------------- |
 | no-select `<optional>` | Table just shows scrollable items                           |
-| single-select          | Table hilites the currently clicked/active item             |
+| single-select          | Table highlights the currently clicked/active item             |
 | multi-select           | Allows selecting multiple items. (no modifier key required) |
 
-For `single-select` and `multi-select`, a `selected` class is applied to the selected/clicked table-item `td`, so it's easy to find its state. You can also pre-select an item by adding a class `selected` when constructing the table.
+For `single-select` and `multi-select`, a `selected` class is applied to the selected/clicked table-item `td`.
 
 ```html
  <div class="sdpi-item" id="tableid">
@@ -767,11 +760,11 @@ For `single-select` and `multi-select`, a `selected` class is applied to the sel
 </div>
 ```
 
-#### Table with Single Selection <a href="#table-with-single-selection" id="table-with-single-selection"></a>
+#### Table with Single Selection
 
 ![Table with Selection](<./docs/image (15).png>)
 
-Creating a table which shows a single selection is as easy as adding a `single-select` class to the table:
+Creating a table which shows a single selection by adding a `single-select` class to the table:
 
 ```html
 <div class="sdpi-item" id="tableid1">
@@ -797,7 +790,7 @@ Creating a table which shows a single selection is as easy as adding a `single-s
 </div>
 ```
 
-#### Table with multi selection <a href="#table-with-multi-selection" id="table-with-multi-selection"></a>
+#### Table with multi selection
 
 Adding a `multi-select` class to the table creates a table showing multiple selected cells:
 
@@ -831,7 +824,7 @@ Adding a `multi-select` class to the table creates a table showing multiple sele
 
 #### File Selector
 
-To add a file-selector to the PI, you can add a type of `file` and a class `sdpi-item-value` to the HTML. The integrated file-selector, unfortunately, returns a 'fakepath' as its value (and shows it in the label). You will need to write your own code for reading the contents of the file.
+To add a file-selector to the PI, you can add a type of `file` and a class `sdpi-item-value` to the HTML. The integrated file-selector, returns a 'fakepath' as its value (and shows it in the label). You will need to write your own code for reading the contents of the file.
 
 ![File Selector](<./docs/image (5).png>)
 
@@ -844,7 +837,7 @@ To add a file-selector to the PI, you can add a type of `file` and a class `sdpi
 
 #### Property inspector's file-selector
 
-Most of the time, however, you will want to pass a file path back to your plugin. We added some custom elements and styling to the file selector.
+You will want to pass a file path back to your plugin. We added custom elements and styling to the file selector.
 
 ![File Selector](<./docs/image (41).png>)
 
@@ -859,13 +852,11 @@ Most of the time, however, you will want to pass a file path back to your plugin
 </div>
 ```
 
-Here we add to `label` elements to the DOM, whose 'for'-attribute contains the reference to the ìnput`element (in the example above`elgfilepicker\`).
-
-`spdi-file-info` will receive the file-name `sdpi-file-label` replaces the original 'Choose file...' button.
+`sdpi-file-info` will receive the file-name `sdpi-file-label` replaces the original 'Choose file...' button.
 
 Clicking both elements will trigger and show the file-selector-dialog. To ensure proper styling, just group those elements in a `sdpi-item-group` and add a class `file`. The included sample code will fill the elements as needed. If you don't need to show the file name, you can just leave the `sdpi-file-info` out. Only the `sdpi-file-label` is required since it triggers the file dialog.
 
-The file-selector returns an URLencoded absolute file path. (e.g. `%2FUsers%2Fandy%2FDesktop%2Fmarina.png`). To convert this back to a javascript string, you must decode this string first using `decodeURIComponent`.
+The file-selector returns an URLencoded absolute file path. (e.g. `%2FUsers%2Fandy%2FDesktop%2Fmarina.png`). To convert this back to a string, you must decode this string first using `decodeURIComponent`.
 
 Please note: Chromium adds (for security reasons) a 'fake' string `C:\\fakepath\\`, so you must strip this fakepath to get to the 'real' path, like so:
 
@@ -883,7 +874,7 @@ document.querySelector('.sdpi-file-info[for="elgfilepicker"]').textContent = 'ma
 
 ### Group
 
-Sometimes you will want to group some inputs or other elements together visually. For this case, there's a `sdpi-item-group` element, which groups arbitrary elements.
+Group elements together using a `sdpi-item-group` element.
 
 As with any other `sdpi-item`, a group can have a label. The main difference to a regular `sdpi-item-label` is that the group's label is left-aligned and can fill the whole space above a group (e.g. it can be a longer and more descriptive string).
 
@@ -915,7 +906,7 @@ The structure of a group is similar to a regular `sdpi-item`, with the exception
 
 ### Line
 
-You can draw a horizontal line using HTML5's `<hr>` element. This draws a line from left to right over the full width of PI's viewable pane (minus some margin). This can be helpful to separate different inspector elements or groups.
+You can draw a horizontal line using HTML5's `<hr>` element. This draws a line from left to right, over the full width of PI's viewable pane (minus some margin). This can be helpful to separate different inspector elements or groups.
 
 ```html
 <hr>
@@ -925,11 +916,11 @@ You can draw a horizontal line using HTML5's `<hr>` element. This draws a line f
 
 ### Heading
 
-A heading lets you place a nice heading above (or below) an sdpi-item. It is meant as an optical separation between `sdpi-items`.
+A heading lets you place a nice heading above (or below) a `sdpi-item`.
 
 ![Heading](<./docs/image (62).png>)
 
-To add an heading, simply place a `div` with a class `sdpi-heading` outside an `sdpi-item`:
+To add a heading, simply place a `div` with a class `sdpi-heading` outside a `sdpi-item`:
 
 ```html
 <div class="sdpi-heading">MY HEADLINE</div>
@@ -950,9 +941,7 @@ A horizontal meter.
 
 #### Multiple meters
 
-Like other controls, you can easily add multiple meters to the output.
-
-Please note: Since `Meter` controls are meant 'read-only', you should give every meter node its own class of `sdpi-item-value` (especially if you want to later make them interactive - e.g. clickable individually).
+Like other controls, you can add multiple meters to the output. Since `Meter` controls are meant 'read-only', you should give every meter node its own class of `sdpi-item-value` (especially if you want to later make them interactive - e.g. clickable individually).
 
 ![Multiple Meters](<./docs/image (18).png>)
 
@@ -967,7 +956,7 @@ Please note: Since `Meter` controls are meant 'read-only', you should give every
 
 #### Full width meters
 
-To stack meter-controls vertically and apply full width, we included a helper-class 'full' in the `sdpi.css`, which will produce full-width controls:
+To stack meter-controls vertically and apply full width, we included a helper-class `full` in the `sdpi.css`, which will produce full-width controls:
 
 ![Full Meters](<./docs/image (36).png>)
 
@@ -984,7 +973,7 @@ To stack meter-controls vertically and apply full width, we included a helper-cl
 
 #### Meters with labels
 
-Adding some labels to a meter requires grouping the meters in a separate child-node containing the left label, the meter, and the right label, which then will produce an output similar to this:
+Adding labels to a meter requires grouping the meters in a separate child-node containing the left label, the meter, and the right label, which then will produce an output similar to this:
 
 ![Meters With Labels](<./docs/image (24).png>)
 
@@ -1010,8 +999,6 @@ Adding some labels to a meter requires grouping the meters in a separate child-n
     </div>
  </div>
 ```
-
-_Hint:_ Our included PISamples plugin shows how to make these (and other controls) clickable easily. Just take a look or copy the code from there.
 
 ### Progress
 
@@ -1047,7 +1034,7 @@ Please note: Since `Progress` controls are meant 'read-only', you should give ev
 
 ### Full Width Meters
 
-To stack progress-controls vertically and apply full width, we included a helper-class 'full' in the `sdpi.css`, which will produce full-width controls:
+To stack progress-controls vertically and apply full width, we included a helper-class `full` in the `sdpi.css`, which will produce full-width controls:
 
 ![Full Width Meters](<./docs/image (30).png>)
 
@@ -1064,9 +1051,9 @@ To stack progress-controls vertically and apply full width, we included a helper
 
 ### Progress with labels
 
-Adding some labels to a meter requires grouping the meters in a separate child-node containing the left label, the meter, and the right label, which then will produce an output similar to this:
+Adding labels to a meter requires grouping the meters in a separate child-node containing the left label, the meter, and the right label, which then will produce an output similar to this:
 
-![Progerss With Labels](<./docs/image (52).png>)
+![Progress With Labels](<./docs/image (52).png>)
 
 ```html
 <div class="sdpi-item" type="progress" id="progress_with_labels">
@@ -1090,8 +1077,6 @@ Adding some labels to a meter requires grouping the meters in a separate child-n
     </div>
  </div>
 ```
-
-Hint: Our included PISamples plugin shows how to make these (and other controls) clickable easily. Just take a look or copy the code from there.
 
 ### Details
 
@@ -1131,7 +1116,7 @@ You _can_ wrap the details-item into a regular `sdpi-item` like so:
 
 ![Wrapped Details](<./docs/image (76).png>)
 
-but it will also work on it's own:
+but it will also work on its own:
 
 ```html
 <details>
@@ -1146,7 +1131,7 @@ but it will also work on it's own:
 
 ![Unwrapped Details](<./docs/image (91).png>)
 
-You most likely want to show the user some information about your plugin (or its usage). Allowing the `details` element to flow across the full width of PI's view pane will give you some more space to present your information.
+You most likely want to show the user information about your plugin (or its usage). Allowing the `details` element to flow across the full width of PI's view pane will give you more space to present your information.
 
 ### Message
 
@@ -1193,9 +1178,9 @@ A `message` element's default state is 'closed'. In this state, it only shows th
 
 Hint: If you add an anchor element to the HTML, you can add one of the supported icons here as well...
 
-### Tabs <a href="#tabs" id="tabs"></a>
+### Tabs
 
-If your property inspector contains lots of entries (or you want to add some structure), you can use the `tabs` element:
+If your property inspector contains many entries (or you want to add some structure), you can use the `tabs` element:
 
 ```html
 <div type="tabs" class="sdpi-item">
@@ -1219,12 +1204,12 @@ If your property inspector contains lots of entries (or you want to add some str
 </div>
 ```
 
-<figure><img src="./docs/pi_tabs.webp" alt="Tabs"><figcaption><p>Tabs</p></figcaption></figure>
+![Tabs](./docs/pi_tabs.webp)
 
 * a tab must have the class `tab`
 * a tab must have a `data-target` attribute that points to the id of the content (e.g. `#tab1`)
 * the content must have the class `tab-content`
-* the content must have an `id` that matches the `data-target` attribute of the tab
+* the content must have a `id` that matches the `data-target` attribute of the tab
 
 To make the tabs clickable, you can use the following code:
 
@@ -1261,17 +1246,9 @@ function clickTab(clickedTab) {
 }
 ```
 
-This code above will make the tabs interactive: - clicking on a tab will make it active - clicking on a tab will show the corresponding content - clicking on a tab will hide the content of all other tabs
-
-Note: You will find working tabs in:
-
-* [Javascript Template Plugin](https://github.com/elgatosf/streamdeck-plugin-template) at [https://github.com/elgatosf/streamdeck-plugin-template](https://github.com/elgatosf/streamdeck-plugin-template)
-
 ## Interactivity
 
 To gain full interactivity from Property Inspector to the plugin, the Property Inspector must be able to send messages to the plugin.
-
-Since the PI is just a regular webpage, you can include common scripting techniques to communicate from Property Inspector to Stream Deck to Plugin and vice versa.
 
 ### Registration
 
@@ -1327,17 +1304,15 @@ const json = {
 websocket.send(JSON.stringify(json));
 ```
 
-The JSON's `payload` can be anything you like, as long as it is possible to send it as _string_ through a websocket (Your plugin is responsible for handling the data).
-
-You will find more details about the message and message format here: Property Inspector Events
+The JSON's `payload` can be anything you like, as long as it is possible to send it as _string_ through a WebSocket (Your plugin is responsible for handling the data).
 
 ### PI lifecycle events
 
-When the Property Inspector closes, standard HTML5 lifecycle events are sent. You can add a listener to these events, e.g. to signal your plugin, the PI is no longer available, and thereby you don't need to send further data to it. This is good practice to avoid unnecessary traffic on the websocket.
+When the Property Inspector closes, standard HTML5 lifecycle events are sent. You can add a listener to these events, e.g. to signal your plugin, the PI is no longer available, and thereby you don't need to send further data to it. This is good practice to avoid unnecessary traffic on the WebSocket.
 
 To subscribe to these events, you may install an event listener on the PI window. When you receive one of these events, you can signal your plugin; the PI will be closed.
 
-Here are some examples (not you only need one of these):
+Examples:
 
 **`beforeunload`-event**
 
@@ -1371,9 +1346,7 @@ window.addEventListener('unload', function (event) {
 
 ### Sample Property Inspector
 
-With these bits of information, we can create a working Property Inspector quickly.
-
-First of all, we need an input control to enter some data. In this example, we use an HTML `select` to send some values to the plugin.
+We need an input control to enter data. In this example, we use an HTML `select` to send some values to the plugin.
 
 According to the documentation [above](broken-reference/), we add a `select` control to Property Inspector's `sdpi-wrapper`:
 
@@ -1397,10 +1370,7 @@ According to the documentation [above](broken-reference/), we add a `select` con
  </div>
 ```
 
-Note the `sendValueToPlugin` call on the select's `onChange` event (which is fired every time the value of the select changes). It adds two parameters:
-
-* the value of the event's target (in this case, the `select`)
-* and a custom identifier (which can be anything you like)
+`onChange` will trigger a `sendToPlugin` Stream Deck event.
 
 | Parameter  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1433,8 +1403,6 @@ With this information, we are now able to write a function, which handles the re
 
 }
 ```
-
-Putting the above HTML/Javascript together already makes up a nice and functional Property Inspector.
 
 One missing part is the included styling contained in `sdpi.css` which is included in the samples and can quickly be added to the HTML's `<head>` section:
 
