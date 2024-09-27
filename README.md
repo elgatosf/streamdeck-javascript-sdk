@@ -1,4 +1,4 @@
-# streamdeck-javascript-sdk
-
-A library for plugins used for connecting to Stream Deck. This does not require a build step and declares variables in
-the global scope directly in the class files.
+> [!IMPORTANT]  
+> The new [Stream Deck SDK](https://github.com/elgatosf/streamdeck) is now available!
+>
+> This repository has been marked as deprecated, and will soon be deleted. If you have any questions, please contact us via [maker@elgato.com](maker@elgato.com), or join our [Makertplace Makers](https://discord.gg/GehBUcu627) Discord community.
